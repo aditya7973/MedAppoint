@@ -246,13 +246,29 @@
             height: 4px;
             margin: 5px 3px;
         }
+        #alert{
+          display: none;
+        }
+        #alerterror{
+            display: none;
+        }
+        .alert-fixed {
+    position:fixed; 
+    top: 0px; 
+    left: 0px; 
+    width: 100%;
+    z-index:9999; 
+    border-radius:0px
+}
     </style>
     <script>
  const  registerform=(e)=>{
 e.preventDefault();
 
  }
- const registerapi=async(email)=>{
+ var name,email,password,phone_number,username;
+ const registerapi=async()=>{
+
   try {
  
     const response = await fetch(
@@ -266,19 +282,24 @@ e.preventDefault();
 
         
         },
-        body: JSON.stringify({first_name:name,email:email,password:password,phone_number:989255568, username:"adihjj973"})
+        body: JSON.stringify({first_name:name,email:email,password:password,phone_number:phone_number,username:username})
       
       
 
       }
     );
 
-    if (response.status == 500) {
+    if (response.status == 500 || response.status==404) {
    
     
     } else {
       let result = await response.json();
-      console.log(result)
+      document.getElementById('alert').style.display="block"
+      setInterval(()=>{
+        document.getElementById('alert').style.display="none"
+        window.location.href="Login.html"
+      },2000)
+
 
     }
   } catch (error) {
@@ -286,22 +307,104 @@ e.preventDefault();
     console.log(error.message);
   }
 }
- const  register=(email)=>{
+ const  register=()=>{
  
-    var name = document.getElementById('name').value
-    var email=document.getElementById('email').value
-    var password=document.getElementById('password').value
+     name = document.getElementById('name').value
+     email=document.getElementById('emailid').value
+     password=document.getElementById('password').value
+     phone_number=document.getElementById('phone_number').value
+     username=document.getElementById('username').value
+     confirm_password=document.getElementById('confirm_password').value
 
-
-registerapi(email)
+     if(name.length<3){
+      document.getElementById("alerterrorspan").innerHTML = " Name should be of 3 characters";
+   document.getElementById('alerterror').style.display="block"
+   setInterval(()=>{
+     document.getElementById('alerterror').style.display="none"
+   
+   },2000)
+     }
+     else if(email.length<5){
+      document.getElementById("alerterrorspan").innerHTML = " Email should be of 5 characters";
+   document.getElementById('alerterror').style.display="block"
+   setInterval(()=>{
+     document.getElementById('alerterror').style.display="none"
+   
+   },2000)
+     }
+     else if(password.length<8){
+      document.getElementById("alerterrorspan").innerHTML = " Password should be of 8 characters";
+   document.getElementById('alerterror').style.display="block"
+   setInterval(()=>{
+     document.getElementById('alerterror').style.display="none"
+   
+   },2000)
+     }
+     else if(phone_number.length!=10){
+      document.getElementById("alerterrorspan").innerHTML = " Phone Number should be of 10 characters";
+   document.getElementById('alerterror').style.display="block"
+   setInterval(()=>{
+     document.getElementById('alerterror').style.display="none"
+   
+   },2000)
+}
+else if(username.length<8){
+  document.getElementById("alerterrorspan").innerHTML = " Username should be of 8 characters";
+   document.getElementById('alerterror').style.display="block"
+   setInterval(()=>{
+     document.getElementById('alerterror').style.display="none"
+   
+   },2000)
+}
+else if(confirm_password.length<8){
+  document.getElementById("alerterrorspan").innerHTML = " Repeat password should be of 8 characters";
+   document.getElementById('alerterror').style.display="block"
+   setInterval(()=>{
+     document.getElementById('alerterror').style.display="none"
+   
+   },2000)
+}
+else if(password !== confirm_password){
+  document.getElementById("alerterrorspan").innerHTML = " Confirm password and  password should be same";
+   document.getElementById('alerterror').style.display="block"
+   setInterval(()=>{
+     document.getElementById('alerterror').style.display="none"
+   
+   },2000)
+}
+     else{
+       registerapi()
+    }
+      
 
  }
-
+ closealert=()=>{
+   document.getElementById('alert').style.display="none"
+ }
+ closealerterror=()=>{
+   document.getElementById('alerterror').style.display="none"
+ }
 
     </script>
 </head>
 
 <body>
+     <!-- alert -->
+     <div class="alert alert-success alert-fixed alert-dismissible fade show " id="alert" role="alert" style="top: 0px;">
+      <strong>Success!</strong> Your account is successfully created.
+      <button type="button" class="close" onclick="closealert()" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- alert -->
+     <!-- alert -->
+     <div class="alert alert-fixed alert-danger alert-dismissible fade show " id="alerterror" role="alert" style="top: 0px;">
+      <strong>Failed!</strong><span id="alerterrorspan"></span>
+      <button type="button" class="close" onclick="closealerterror()" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- alert -->
     <nav class="navb4r backgr0und h-nav-rsp">
        
         <ul class="nav-lst v-class-rsp">
@@ -317,7 +420,9 @@ registerapi(email)
         </div> -->
         
     </nav>
-    
+ 
+
+
     <section class="vh-100" style="background-color: #eee;">
         <div class="container h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -342,8 +447,22 @@ registerapi(email)
                         <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div class="form-outline flex-fill mb-0">
-                            <input type="email"  id="email" name="email" class="form-control" />
+                            <input type="email"  id="emailid" name="emailid" class="form-control" />
                             <label class="form-label" for="form3Example3c">Your Email</label>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <input type="Phone number"  id="phone_number" name="phone_number" class="form-control" />
+                            <label class="form-label" for="form3Example3c">Your Phone Number</label>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <input type="text" id="username" name="username" class="form-control" />
+                            <label class="form-label" for="form3Example1c" >Username</label>
                           </div>
                         </div>
       
@@ -358,7 +477,7 @@ registerapi(email)
                         <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                           <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="conformpassword" name="confirmpassword" class="form-control" />
+                            <input type="password" id="confirm_password" name="confirm_password" class="form-control" />
                             <label class="form-label" for="form3Example4cd">Repeat your password</label>
                           </div>
                         </div>
@@ -366,7 +485,9 @@ registerapi(email)
                         
       
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                          <button value="submit" type="button" class="btn btn-primary btn-lg" onclick="register()">Register</button>
+                          <button value="submit" type="button" class="btn btn-primary btn-lg"
+                       
+                            onclick="register()">Register</button>
                         </div>
       
                       </form>

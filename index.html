@@ -307,9 +307,67 @@
             }
         }
     </style>
+    <script>
+        var user;
+        const getuserapi=async()=>{
+            
+        try {
+
+const response = await fetch(
+  `http://localhost:5000/api/auth/getUser`,
+  {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token":sessionStorage.getItem("auth-token")
+
+    
+    },
+    
+  
+  
+
+  }
+);
+let result = await response.json();
+
+if (response.status == 500 || response.status==404) {
+
+console.log(result.error)
+} else {
+user=result
+console.log(user?.user?.first_name)
+document.getElementById('navbarloginbuttionindex').innerHTML=(user?.user?.first_name);
+
+}
+} catch (error) {
+
+console.log(error.message);
+}
+        }
+        const onloadindex=()=>{
+     
+            if(sessionStorage.getItem('auth-token')){
+                getuserapi();
+
+          
+        }
+        else{
+            document.getElementById('navbarloginbuttionindex').innerHTML="Login"  
+        }
+        }
+        const logout=()=>{
+            if(sessionStorage.getItem('auth-token')){
+              sessionStorage.removeItem("auth-token")
+              document.getElementById('navbarloginbuttionindex').innerHTML="Login"  
+              document.getElementById('navbarlogoutbuttionindex').style.display="none" 
+        } 
+        }
+        </script>
 </head>
 
-<body>
+<body onload="onloadindex()">
     <nav class="navbar background h-nav-resp">
         <ul class="nav-list v-class-resp">
             <div class="logo"><img src="https://cdn-icons-png.flaticon.com/512/2895/2895071.png" alt="logo"></div>
@@ -321,8 +379,10 @@
         </ul>
         <div class="rightnav v-class-resp">
 
-            <button class="btn btn-sm" onclick="location.href='Login.html'">Login</button>
+            <button class="btn btn-sm " id="navbarloginbuttionindex" onclick="location.href='Login.html'"></button>
+            <button class="btn btn-sm " id="navbarlogoutbuttionindex" onclick="logout()">Logout</button>
         </div>
+        
         <!-- <div class="burger">
             <div class="line"></div>
             <div class="line"></div>

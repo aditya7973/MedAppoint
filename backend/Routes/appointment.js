@@ -9,23 +9,24 @@ const Appointment = require('../Modals/appointment.js');
 router.post("/Booking",fetchUser, async (req,res)=>{
     try{
       const alreadappointment = await Appointment.findOne({email:req.body.email})
-    
+
       if(alreadappointment){
         return res.status(404).json({error:"You Had Already Booked the Appoitment"})
       }
    
-    const {Name,
-        Desease,
-        Email,
-        Date_of_Appointment,
+    const {name,
+      time,
+        email,
+        date_of_appointment,
         problem,
         gender,
         phone_number} = req.body
         const newappointment =new Appointment({
-            Name,
-            Desease,
-            Email,
-            Date_of_Appointment,
+            name,
+         
+            email,
+            time,
+            date_of_appointment,
             problem,
             gender,
             phone_number,

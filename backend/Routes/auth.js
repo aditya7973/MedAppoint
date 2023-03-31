@@ -17,16 +17,16 @@ router.post('/createUser', [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ error: errors.array() });
+        return res.status(404).json({ error: errors.array() });
     }
     try {
         let emailcheck = await User.findOne({ email: req.body.email });
         if (emailcheck) {
-            return res.status(400).json({ 'error': "Sorry user already exists with this email" })
+            return res.status(404).json({ error: "Sorry user already exists with this email" })
         }
         let numberCheck = await User.findOne({ 'phone_number': req.body.phone_number })
         if (numberCheck) {
-            return res.status(400).json({ 'error': "Sorry user already exists with this phone Number" })
+            return res.status(404).json({ error: "Sorry user already exists with this phone Number" })
         }
         const salt = await bcrypt.genSalt(10);
         const securedpass = await bcrypt.hash(req.body.password, salt)
@@ -81,7 +81,7 @@ router.post('/login', [
         const data = {
             id: user.id
         }
-        const onlinestatus = await User.findByIdAndUpdate({_id :user.id}, { $set: {OnLine : true  } })
+        // const onlinestatus = await User.findByIdAndUpdate({_id :user.id}, { $set: {OnLine : true  } })
         const auth_token = jwt.sign(data, jwtSecret)
         let success = "true"
         res.json({ success ,auth_token })
@@ -115,11 +115,11 @@ router.post('/getUser', fetchUser, async (req, res) => {
     try {
       
         const id = req.user.id;
-        const recipe = await Recipe.find({ user: req.user.id });
+       
     
-        const recipe_lenght=recipe.length
+      
         const user = await User.findById(id).select("-password")
-        res.json({user:user,totalResults:recipe_lenght})
+        res.json({user:user})
     }
     catch (error) {
         console.error(error.message)

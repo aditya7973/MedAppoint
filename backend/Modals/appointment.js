@@ -5,7 +5,7 @@ const AppointmentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    Name:{
+    name:{
         type:String,
 
     },
@@ -15,22 +15,23 @@ const AppointmentSchema = new Schema({
     problem:{
         type:String
     },
-    Date:{
+    date:{
         type:Date,
         default:Date.now
     },
-    Email:{
+    email:{
         type:String
     },
-    Desease:{
-        type:String
-    },
-    Date_of_Appointment:{
+   
+    date_of_appointment:{
         type:Date
     },
      gender:{
         type:String
 
+},
+time:{
+    type:String
 }
 
 })
