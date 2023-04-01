@@ -15,8 +15,8 @@ const ContactSchema = new Schema({
     Email:{
         type:String
     },
-    Subject:{
-        type:String
+    phone_numer:{
+        type:Number
     }
 
 })

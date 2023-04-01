@@ -51,7 +51,7 @@ router.post("/Booking",fetchUser, async (req,res)=>{
 router.get("/AllApointment",fetchUser, async (req,res)=>{
     try{
    
-     const allapointment = await Appointment.find({user:req.user.id})
+     const allapointment = await Appointment.find()
 
     
         if(!allapointment){
@@ -78,7 +78,7 @@ router.delete("/delete/:id",fetchUser,async(req,res)=>{
             return res.status(404).json({ error: "Your cannot Access the information! You are not a admin" })
         }
        
-   const deleteappointment = await appointements.deleteOne({_id:req.params.id})
+   const deleteappointment = await appointements.deleteMany({_id:req.params.id})
 
           res.json("successfully deleted the appointment")
      }

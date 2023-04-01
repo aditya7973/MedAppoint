@@ -298,10 +298,52 @@ box-shadow: 7px 12px 15px rgba(0, 0, 0, 0.3);
             gender=value
         }
     const onloadurgent=()=>{
+
  if(!sessionStorage.getItem('auth-token')){
     window.location.href="Login.html"
  }
+ else{
+    getuserapi();
+ }
     }
+    const getuserapi = async () => {
+
+try {
+
+    const response = await fetch(
+        `http://localhost:5000/api/auth/getUser`,
+        {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": sessionStorage.getItem("auth-token")
+
+
+            },
+
+
+
+
+        }
+    );
+    let result = await response.json();
+
+    if (response.status == 500 || response.status == 404) {
+
+        console.log(result.error)
+    } else {
+        user = result
+       
+ document.getElementById('name').value=user?.user?.first_name
+ document.getElementById('email').value=user?.user?.email
+document.getElementById('phone_number').value=user?.user?.phone_number
+    }
+} catch (error) {
+
+    console.log(error.message);
+}
+}
     const Bookenowapi=async()=>{
 
         try {
@@ -352,7 +394,15 @@ date=document.getElementById('date').value
 time=document.getElementById('time').value
 message=document.getElementById('message').value
 phone_number=document.getElementById('phone_number').value
-Bookenowapi()
+if(new Date(date).getTime() <= new Date().getTime()){
+    window.alert("Date Sholud Not be in Back Date")
+
+}
+else{
+
+    Bookenowapi()
+
+}
 
 }
 
@@ -381,11 +431,7 @@ Bookenowapi()
 
             <button class="btn btn-sm" onclick="location.href='Login.html'">Login</button>
         </div>
-        <!-- <div class="burger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div> -->
+     
     </nav>
 
     <div class="container">
@@ -449,7 +495,16 @@ Bookenowapi()
                 </div>
                 <div class="form-field" >
                     <p>Time:</p>
-                    <input type="time" id="time" name="time" required>
+                    <!-- <input type="time" id="time" name="time" required> -->
+                    <select class="form-field" id="time" aria-label="Default select example">
+                        <option selected>Time Slot Avaliable</option>
+                        <option value="9am -10a">9am -10am</option>
+                        <option value="10am - 12pm">10am - 12pm</option>
+                        <option value="12pm - 2pm">12pm - 2pm</option>
+                        <option value="3pm - 5pm">3pm - 5pm</option>
+                        <option value="5pm - 7pm">5pm - 7pm</option>
+                        <option value="7pm - 9pm">7pm - 9pm</option>
+                      </select>
                 </div>
                 <div class="form-field">
                     <p>Add your message:</p>
