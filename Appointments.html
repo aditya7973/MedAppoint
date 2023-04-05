@@ -315,15 +315,19 @@
         }
     </style>
     <script>
+        var  user = {};
+var  allappointment={};
          const onloadindex = () => {
+         
 
 if (sessionStorage.getItem('auth-token')) {
     document.getElementById('navbarlogoutbuttionindex').style.display = "inline"
     getuserapi();
+    console.log(sessionStorage.getItem('auth-token'))
   
 //                 if (user?.user?.first_name =="rohit")
-// {
-    allappointmentapi
+// {c
+    allappointmentapi();
 // }
 // else{
 //     window.location.href="index.html"
@@ -336,8 +340,7 @@ else {
     window.location.href="login.html"
 }
 }
-var user;
-var allappointment;
+
 const allappointmentapi = async () => {
 
 try {
@@ -348,11 +351,12 @@ try {
             method: "GET",
             mode: "cors",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
               
+                "auth-token": sessionStorage.getItem("auth-token")
 
+            }
 
-            },
 
 
 
@@ -366,7 +370,16 @@ try {
         console.log(result.error)
     } else {
         allappointment = result
-        console.log(allappointment)
+        console.log(allappointment.allapointment[0].name
+)
+var alllist=""
+allappointment.allapointment.map((element)=>{
+    
+    alllist +=`<span >${element.name}    &nbsp  </span> <span>${element.email } &nbsp        </span> <span>${element.gender}    &nbsp        </span> <span>${element.phone_number}  &nbsp       </span><span>${element.time}  &nbsp        </span><span>${element.problem} &nbsp         </span>`
+      alllist=`<div>${alllist}</div>`
+})
+
+document.getElementById("this").innerHTML=alllist
         
 
     }
@@ -375,7 +388,7 @@ try {
     console.log(error.message);
 }
 }
-
+var rohit="rohit"
 
         const getuserapi = async () => {
 
@@ -405,8 +418,8 @@ try {
                     console.log(result.error)
                 } else {
                     user = result
-                    console.log(user?.user?.first_name)
-                    document.getElementById('navbarloginbuttionindex').innerHTML = (user?.user?.first_name);
+                    console.log(user)
+                  
 
                 }
             } catch (error) {
@@ -455,64 +468,10 @@ if (sessionStorage.getItem('auth-token')) {
           <div className="min-vh-100">
            
 
-           
-              <div className="card card-header-actions mb-4 ">
-                <div className="card-header">Latest Recipes</div>
+              <div className="card card-header-actions mb-4">
+                <div className="card-header" id="this"> </div> 
 
-                <!-- <div className="card-body border-primary px-0">
-                  {Latest_recipebyid.recipe &&
-                    Latest_recipebyid.recipe.map((element) => {
-                      return (
-                        <div key={element._id}>
-                          <div className="d-flex align-items-center justify-content-between px-4 latestrecipelibox py-2">
-                            <div className="d-flex align-items-center">
-                              <img
-                                src={element.image}
-                                className="img-fluid shadow-1-strong rounded latest_recipe_image Profile_activity_latest_image "
-                                alt="Latest Recipe Image"
-                              />
-                              <div className="ms-4">
-                                <div className="small">{element.label}</div>
-                                <div className="text-xs text-muted">
-                                  {new Date(element.date).toLocaleString()}
-                                </div>
-                              </div>
-                            </div>
-                            <div className="ms-4 small row">
-                              <div className="me-2 p-1 col">
-                                {" "}
-                                <Button
-                                  onPress={() => {
-                                    deleterecipe(element._id);
-                                  }}
-                                  color="error"
-                                  auto
-                                  ghost
-                                >
-                                  <i className="fa-sharp fa-solid fa-trash"></i>
-                                </Button>
-                              </div>
-                              <div className="col p-1">
-                                <Button
-                                  color="primary"
-                                  auto
-                                  ghost
-                                  onPress={() => {
-                                    Navigate("/Edit", {
-                                      state: { EditingRecipeId: element._id },
-                                    });
-                                  }}
-                                >
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </Button>
-                              </div>
-                            </div>
-                          </div>
-                          <hr />
-                        </div>
-                      );
-                    })}
-                </div> -->
+          
               </div>
             
           </div>
