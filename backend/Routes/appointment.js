@@ -51,7 +51,7 @@ router.post("/Booking",fetchUser, async (req,res)=>{
 router.get("/AllApointment",fetchUser, async (req,res)=>{
     try{
    
-     const allapointment = await Appointment.find()
+     const allapointment = await Appointment.find().sort({date:-1})
 
     
         if(!allapointment){

@@ -313,6 +313,39 @@
         #navbarlogoutbuttionindex{
             display: none;
         }
+       .containeraditya{
+        display: flex;
+    justify-content: space-evenly;
+       }
+       th{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+          
+      table{
+        font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+        /* font-size:large;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+      }
+      table, th, td {
+       
+
+
+  border: 1.5px solid black;
+
+  padding: 10px;
+}
+  th, td{
+    overflow: hidden;
+width: 160px;
+
+text-overflow: ellipsis; 
+  } 
     </style>
     <script>
         var  user = {};
@@ -373,12 +406,37 @@ try {
         console.log(allappointment.allapointment[0].name
 )
 var alllist=""
+var num=0
 allappointment.allapointment.map((element)=>{
-    
-    alllist +=`<span >${element.name}    &nbsp  </span> <span>${element.email } &nbsp        </span> <span>${element.gender}    &nbsp        </span> <span>${element.phone_number}  &nbsp       </span><span>${element.time}  &nbsp        </span><span>${element.problem} &nbsp         </span>`
-      alllist=`<div>${alllist}</div>`
+    num++;
+    alllist +=`
+  <tr>
+    <td>${num}</td>
+    <td>${element.name}</td>
+    <td>${element.email}</td>
+    <td>${element.gender}</td>
+    <td>${element.phone_number}</td>
+    <td>${element.time}</td>
+    <td>${element.problem}</td>
+    <td>${ new Date(element.date_of_appointment).toDateString()}</td>
+ 
+  </tr>
+  
+`
 })
 
+
+alllist=`<table  cellpadding="20px" cellspacing="50px" style=" text-align: left;">
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>gender</th>
+    <th>Phone number</th>
+    <th>Time</th>
+    <th>Problem</th>
+    <th>Date of Appointment</th>
+  </tr>${alllist}</table>`
 document.getElementById("this").innerHTML=alllist
         
 
@@ -465,16 +523,16 @@ if (sessionStorage.getItem('auth-token')) {
         </div>
     </nav>
         <div>
-          <div className="min-vh-100">
+          <div className="" style="margin-top: 20px;">
            
 
-              <div className="card card-header-actions mb-4">
-                <div className="card-header" id="this"> </div> 
-
+        <div class="containeraditya ">
+                <div  id="this"> </div> 
+            </div>
           
               </div>
             
-          </div>
+    
 
    
 

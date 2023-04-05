@@ -18,11 +18,6 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    
-    Profile_Image:{
-    type:String,
-    default:"UserImages/default.jpg"
-    },
     username:{
 type:String,
 
@@ -33,13 +28,7 @@ type:String,
     first_name:{
         type:String
     },
-    last_name:{
-        type:String
-    },
-    OnLine:{
-        type:Boolean,
-        default:false
-    },
+
     total_apponitment:{
         type:Number
 

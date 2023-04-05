@@ -317,6 +317,9 @@
         #navbarlogoutbuttionindex{
             display: none;
         }
+        #allapaointment{
+            display: none;
+        }
     </style>
     <script>
         var user;
@@ -348,6 +351,9 @@
                     console.log(result.error)
                 } else {
                     user = result
+                    if(user?.user?.email=="rohitdr095@gmail.com"){
+                        document.getElementById("allapaointment").style.display="block"
+                    }
                     console.log(user?.user?.first_name)
                     document.getElementById('navbarloginbuttionindex').innerHTML = (user?.user?.first_name);
 
@@ -457,7 +463,7 @@ try {
             <li><a href="services.html">Services</a></li>
             <li><a href="Booknow.html">Book-now</a></li>
             <li><a href="#Contact"> Contact us</a></li>
-            <li><a href="Appointments.html"> All Appointments</a></li>
+            <li><a href="Appointments.html" id="allapaointment"> All Appointments</a></li>
         </ul>
         <div class="rightnav v-class-resp">
 
