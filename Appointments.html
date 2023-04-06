@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointments</title>
+    <script src="https://kit.fontawesome.com/ef8896dda1.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Climate+Crisis&family=Fjalla+One&family=Oswald:wght@200&family=Pacifico&family=Playfair+Display&family=Rajdhani:wght@300;600&family=Righteous&family=Shantell+Sans:wght@300&family=Tilt+Warp&family=Ubuntu:ital,wght@0,500;1,400&family=Yanone+Kaffeesatz:wght@200&display=swap');
 
@@ -348,8 +349,13 @@ text-overflow: ellipsis;
   } 
     </style>
     <script>
+
         var  user = {};
 var  allappointment={};
+const deleteappointment=(id)=>{
+    console.log("hlo")
+    console.log(id)
+}
          const onloadindex = () => {
          
 
@@ -413,6 +419,7 @@ allappointment.allapointment.map((element)=>{
     <td>${element.time}</td>
     <td>${element.problem}</td>
     <td>${ new Date(element.date_of_appointment).toDateString()}</td>
+    <td style=" text-align: center; cursor:pointer"><i class="fa-solid fs-2 fa-trash" onclick=${()=>{deleteappointment("jk")}}></i></td>
  
   </tr>
   
@@ -430,8 +437,12 @@ alllist=`<table  cellpadding="20px" cellspacing="50px" style=" text-align: left;
     <th>Time</th>
     <th>Problem</th>
     <th>Date of Appointment</th>
+    <th>Operations</th>
   </tr>${alllist}</table>`
+ 
+
 document.getElementById("this").innerHTML=alllist
+
         
 
     }
