@@ -419,7 +419,7 @@ allappointment.allapointment.map((element)=>{
     <td>${element.time}</td>
     <td>${element.problem}</td>
     <td>${ new Date(element.date_of_appointment).toDateString()}</td>
-    <td style=" text-align: center; cursor:pointer"><i class="fa-solid fs-2 fa-trash" onclick=${()=>{deleteappointment("jk")}}></i></td>
+    <td style=" text-align: center; cursor:pointer"><i class="fa-solid fs-2 fa-trash" onclick="()=>{deleteappointment({element._id)}"></i></td>
  
   </tr>
   
@@ -514,7 +514,7 @@ if (sessionStorage.getItem('auth-token')) {
     <!-- alert -->
     <nav class="navbar background h-nav-resp">
         <ul class="nav-list v-class-resp">
-            <div class="logo"><img src="https://cdn-icons-png.flaticon.com/512/2895/2895071.png" alt="logo"></div>
+            <div class="logo"><img src="logonew1-removebg-preview.png" alt="logo"></div>
             <li><a href="index.html"> Home</a></li>
             <li><a href="about.html"> About</a></li>
             <li><a href="services.html">Services</a></li>
